@@ -7,10 +7,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    var movies: [Movie] = []
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.delegate = self
+        collectionView.dataSource = self
         didRequestMovies()
     }
 
@@ -35,13 +41,24 @@ class ViewController: UIViewController {
             
             let decoder = JSONDecoder()
             do {
-                let movies = try decoder.decode(Movie.self, from: data)
-                print(movies)
+                let myMovies = try decoder.decode(Movie.self, from: data)
+                self.movies.append(myMovies)
             } catch {
                 print(error.localizedDescription)
             }
         }
         task.resume()
     }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return movies.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell() // Not a serious return
+        //if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as?
+        // TO DO: kingfisher
+    }
+    
 }
 
