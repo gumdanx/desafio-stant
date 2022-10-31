@@ -8,38 +8,8 @@
 import Foundation
 
 // MARK: - Movie
-struct Movie: Codable {
-    let backdropPath: String?
-    let createdBy: CreatedBy?
-    let movieDescription: String?
-    let id: Int?
-    let iso3166_1: String?
-    let iso639_1: ISO639_1?
-    let name: String?
-    let objectIDS: [String: String?]?
-    let page: Int?
-    let posterPath: String?
-    let results: [Result]?
-    let runtime: Int?
-    let sortBy: String?
-    let totalPages, totalResults: Int?
-
-    enum CodingKeys: String, CodingKey {
-        case backdropPath = "backdrop_path"
-        case createdBy = "created_by"
-        case movieDescription = "description"
-        case id
-        case iso3166_1 = "iso_3166_1"
-        case iso639_1 = "iso_639_1"
-        case name
-        case objectIDS = "object_ids"
-        case page
-        case posterPath = "poster_path"
-        case results, runtime
-        case sortBy = "sort_by"
-        case totalPages = "total_pages"
-        case totalResults = "total_results"
-    }
+struct ApiResult: Codable {
+    let results: [Movie]?
 }
 
 // MARK: - CreatedBy
@@ -57,7 +27,7 @@ enum ISO639_1: String, Codable {
 }
 
 // MARK: - Result
-struct Result: Codable {
+struct Movie: Codable {
     let adult: Bool?
     let backdropPath: String?
     let genreIDS: [Int]?
